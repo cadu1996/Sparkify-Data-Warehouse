@@ -1,1 +1,0 @@
-# Sparkify-Data-Warehouse
