@@ -1,7 +1,5 @@
 # Sparkify Data Warehouse
 
-## Introduction
-
 Welcome to the Sparkify Data Warehouse project! Sparkify is a fictional music streaming company looking to enhance its analytical capabilities and better understand user behavior on their platform. The aim of this project is to build a scalable and high-performance cloud-based Data Warehouse using AWS to store and process data related to user activities, songs, and artists.
 
 The Data Warehouse will be built on Amazon Redshift, a highly scalable and high-performance cloud data storage solution designed to handle large volumes of data. Redshift enables Sparkify's data analytics team to run complex queries and analyze user behavior patterns with ease and efficiency.
