@@ -64,6 +64,20 @@ By combining these components, the Sparkify DWH architecture provides a robust a
 
 Data modeling is the process of defining and organizing the structure of the data within the Data Warehouse. In the Sparkify project, we use the star schema to model the data, as it is an efficient and intuitive approach for organizing data in a DWH. The star schema simplifies querying and improves analytics performance by minimizing the number of joins required for analytical queries.
 
+
+### Staging Tables
+
+In the Sparkify Data Warehouse, we also use two staging tables to temporarily store the raw data extracted from the source files before it is transformed and loaded into the fact and dimension tables. These staging tables are:
+
+1. **staging_songs**: This table stores raw data about songs and artists, extracted from the JSON files located in the `songs_data` folder in Amazon S3.
+
+2. **staging_events**: This table stores raw data about user activities, such as song plays, extracted from the JSON files located in the `log_data` folder in Amazon S3.
+
+Using staging tables simplifies the ETL process, as it allows for data validation, cleansing, and transformation to be performed efficiently before the data is loaded into the final fact and dimension tables.
+
+![Data Modeling Diagram](sparkify_staging_tables.png)
+
+
 ### Star Schema
 
 The star schema consists of a central fact table and multiple dimension tables that are connected to the fact table. The fact table contains quantitative information about events, while the dimension tables store descriptive attributes related to the events.
@@ -79,6 +93,9 @@ In the context of the Sparkify project, the fact table and dimension tables are 
 4. **Dimension Table - artists**: This table stores information about the artists associated with the songs on the platform, such as their unique artist ID, name, location, latitude, and longitude.
 
 5. **Dimension Table - time**: This table breaks down the timestamp information of song plays into various time-based attributes, such as hour, day, week, month, year, and weekday.
+
+
+![Data Modeling Diagram](sparkify_star_schema.png)
 
 ### Data Modeling Process
 
