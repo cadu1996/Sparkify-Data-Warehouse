@@ -13,7 +13,7 @@ In summary, this project aims to provide Sparkify with a robust and scalable clo
 
 ## Getting Started
 
-1. Filling `KEY` and `SECRET` in dwh.cfg
+1. Fill in `KEY` and `SECRET` in dwh.cfg
 
 2. Run `create_dwh.py` to create a Data Warehouse
 
@@ -21,7 +21,7 @@ In summary, this project aims to provide Sparkify with a robust and scalable clo
 
 4. Run `etl.py` to run ETL process
 
-5. If you don't need more of Data Warehouse, you could delete with `delete_dwh.py`
+5. If you no longer need the Data Warehouse, you can delete it with `delete_dwh.py`
 
 ## Technologies Used
 
