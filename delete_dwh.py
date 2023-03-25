@@ -2,10 +2,12 @@ import boto3
 import json
 import configparser
 
+
 def load_config():
     config = configparser.ConfigParser()
     config.read("dwh.cfg")
     return config
+
 
 def init_aws_clients(config):
     key = config.get("AWS", "KEY")
@@ -20,11 +22,13 @@ def init_aws_clients(config):
     )
     return iam, redshift
 
+
 def delete_cluster(redshift, cluster_identifier):
     print("Deleting cluster")
     redshift.delete_cluster(
         ClusterIdentifier=cluster_identifier, SkipFinalClusterSnapshot=True
     )
+
 
 def wait_for_cluster_deletion(redshift, cluster_identifier):
     print("Waiting for cluster to be deleted")
@@ -40,6 +44,7 @@ def wait_for_cluster_deletion(redshift, cluster_identifier):
             print("Cluster not found")
             break
 
+
 def delete_role(iam, role_name):
     print("Deleting role")
     iam.detach_role_policy(
@@ -47,6 +52,7 @@ def delete_role(iam, role_name):
         PolicyArn="arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess",
     )
     iam.delete_role(RoleName=role_name)
+
 
 if __name__ == "__main__":
     config = load_config()
@@ -59,4 +65,3 @@ if __name__ == "__main__":
     delete_cluster(redshift, dwh_cluster_identifier)
     wait_for_cluster_deletion(redshift, dwh_cluster_identifier)
     delete_role(iam, dwh_iam_role_name)
-

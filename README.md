@@ -10,6 +10,19 @@ The raw data is stored in Amazon S3, a highly scalable and durable object storag
 
 In summary, this project aims to provide Sparkify with a robust and scalable cloud-based Data Warehouse capable of accommodating its growth and delivering valuable insights into user behavior on the music streaming platform.
 
+
+## Getting Started
+
+1. Filling `KEY` and `SECRET` in dwh.cfg
+
+2. Run `create_dwh.py` to create a Data Warehouse
+
+3. Run `create_table.py` to create tables
+
+4. Run `etl.py` to run ETL process
+
+5. If you don't need more of Data Warehouse, you could delete with `delete_dwh.py`
+
 ## Technologies Used
 
 This section provides an overview of the key technologies, tools, and programming languages used in the Sparkify Data Warehouse project. These technologies have been carefully selected to ensure scalability, efficiency, and ease of use throughout the project lifecycle.
@@ -109,12 +122,3 @@ The data modeling process for the Sparkify project includes the following steps:
 
 By following these steps, the data modeling process ensures that the data in the Sparkify Data Warehouse is organized in a way that is efficient, easy to query, and ready for analysis.
 
-## ETL Process
-
-## Data Source
-
-## Instalation and Configuration
-
-## Usage
-
-## Contact

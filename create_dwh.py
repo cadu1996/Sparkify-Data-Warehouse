@@ -168,5 +168,3 @@ if __name__ == "__main__":
 
     update_config(config, cluster_properties)
     save_config_to_file(config)
-          
-
