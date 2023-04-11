@@ -11,6 +11,17 @@ The raw data is stored in Amazon S3, a highly scalable and durable object storag
 In summary, this project aims to provide Sparkify with a robust and scalable cloud-based Data Warehouse capable of accommodating its growth and delivering valuable insights into user behavior on the music streaming platform.
 
 
+1. [Getting Started](#getting-started)
+2. [Technologies Used](#technologies-used)
+3. [DWH Architecture](#dwh-architecture)
+4. [Data Modeling](#data-modeling)
+   - [Staging Tables](#staging-tables)
+   - [Star Schema](#star-schema)
+   - [Data Modeling Process](#data-modeling-process)
+5. [AWS Permissions](#aws-permissions)
+   - [Required AWS Permissions](#required-aws-permissions)
+   - [Granting AWS Permissions](#granting-aws-permissions)
+
 ## Getting Started
 
 1. Fill in `KEY` and `SECRET` in dwh.cfg
@@ -121,4 +132,55 @@ The data modeling process for the Sparkify project includes the following steps:
 4. **Optimize performance**: Indexing and partitioning strategies can be applied to the tables to improve query performance and reduce the time required to analyze the data.
 
 By following these steps, the data modeling process ensures that the data in the Sparkify Data Warehouse is organized in a way that is efficient, easy to query, and ready for analysis.
+
+## AWS Permissions
+
+To set up and run the Sparkify Data Warehouse project, grant certain permissions to
+the AWS Identity and Access Management (IAM) role associated with your Amazon
+Redshift cluster. These permissions are necessary for the project to access and
+interact with the required AWS services, such as Amazon S3 and Amazon Redshift.
+
+### Required AWS Permissions
+
+To set up the Sparkify Data Warehouse project, the following permissions are required:
+
+1. **AmazonS3ReadOnlyAccess**: This permission allows the IAM role to read data
+   from Amazon S3, which is necessary for the ETL process to extract the raw data
+   stored in the S3 bucket.
+
+2. **AmazonRedshiftFullAccess**: This permission grants the IAM role full access
+   to Amazon Redshift, allowing it to create, modify, and manage Amazon Redshift
+   clusters, as well as execute SQL queries and load data into the Data Warehouse.
+
+### Granting AWS Permissions
+
+To grant the required permissions to the IAM role associated with your Amazon
+Redshift cluster, follow these steps:
+
+1. Sign in to the AWS Management Console and open the IAM console at
+   [https://console.aws.amazon.com/iam/](https://console.aws.amazon.com/iam/).
+
+2. In the navigation pane, click **Roles**.
+
+3. Find the IAM role associated with your Amazon Redshift cluster. You can
+   identify this role by its name, which should include "Redshift" or "redshift"
+   as a part of the name.
+
+4. Click the role name to view its details.
+
+5. In the **Permissions** tab, click **Attach policies**.
+
+6. In the search box, type "AmazonS3ReadOnlyAccess" and select the
+   **AmazonS3ReadOnlyAccess** policy from the list.
+
+7. Similarly, search for "AmazonRedshiftFullAccess" and select the
+   **AmazonRedshiftFullAccess** policy from the list.
+
+8. Click **Attach policy** to attach the selected policies to the IAM role.
+
+With the required permissions granted, you can now proceed to set up and run the
+Sparkify Data Warehouse project on AWS. Ensure that your Amazon Redshift cluster
+is configured to use the IAM role with the appropriate permissions, and update
+the `dwh.cfg` file with your AWS access key and secret key.
+
 
