@@ -1,7 +1,8 @@
-import boto3
-import json
 import configparser
+import json
 import time
+
+import boto3
 
 
 def read_config(filename="dwh.cfg"):
@@ -9,7 +10,7 @@ def read_config(filename="dwh.cfg"):
     Reads the config file and returns a ConfigParser object
 
     Args:
-        filename (str, optional): The name of the config file. Defaults to 
+        filename (str, optional): The name of the config file. Defaults to
         "dwh.cfg".
 
     Returns:
@@ -31,7 +32,7 @@ def create_aws_clients(config):
     Returns:
         tuple: A tuple containing EC2, IAM, and Redshift clients.
     """
-    
+
     key = config.get("AWS", "KEY")
     secret = config.get("AWS", "SECRET")
 

@@ -1,6 +1,7 @@
-import boto3
-import json
 import configparser
+import json
+
+import boto3
 
 
 def load_config():
