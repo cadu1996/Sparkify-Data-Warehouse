@@ -5,12 +5,33 @@ import time
 
 
 def read_config(filename="dwh.cfg"):
+    """
+    Reads the config file and returns a ConfigParser object
+
+    Args:
+        filename (str, optional): The name of the config file. Defaults to 
+        "dwh.cfg".
+
+    Returns:
+        ConfigParser: A ConfigParser object
+    """
+
     config = configparser.ConfigParser()
     config.read(filename)
     return config
 
 
 def create_aws_clients(config):
+    """
+    Creates and returns AWS clients for EC2, IAM, and Redshift.
+
+    Args:
+        config (ConfigParser): A ConfigParser object containing AWS configuration.
+
+    Returns:
+        tuple: A tuple containing EC2, IAM, and Redshift clients.
+    """
+    
     key = config.get("AWS", "KEY")
     secret = config.get("AWS", "SECRET")
 
@@ -37,6 +58,17 @@ def create_aws_clients(config):
 
 
 def create_iam_role(iam, config):
+    """
+    Creates a new IAM role with the specified name in the configuration.
+
+    Args:
+        iam (boto3.client): An IAM client instance.
+        config (ConfigParser): A ConfigParser object containing the role name.
+
+    Returns:
+        dict: A dictionary containing information about the newly created IAM role.
+    """
+
     dwh_iam_role_name = config.get("DWH", "DWH_IAM_ROLE_NAME")
 
     try:
@@ -65,6 +97,14 @@ def create_iam_role(iam, config):
 
 
 def attach_iam_role_policy(iam, config):
+    """
+    Attaches the AmazonS3ReadOnlyAccess policy to the specified IAM role.
+
+    Args:
+        iam (boto3.client): An IAM client instance.
+        config (ConfigParser): A ConfigParser object containing the role name.
+    """
+
     dwh_iam_role_name = config.get("DWH", "DWH_IAM_ROLE_NAME")
     print("Attaching Policy")
     iam.attach_role_policy(
@@ -74,6 +114,17 @@ def attach_iam_role_policy(iam, config):
 
 
 def get_iam_role_arn(iam, config):
+    """
+    Retrieves the ARN (Amazon Resource Name) of the specified IAM role.
+
+    Args:
+        iam (boto3.client): An IAM client instance.
+        config (ConfigParser): A ConfigParser object containing the role name.
+
+    Returns:
+        str: The ARN of the specified IAM role.
+    """
+
     dwh_iam_role_name = config.get("DWH", "DWH_IAM_ROLE_NAME")
     print("Get the IAM role ARN")
     dwh_iam_role_arn = iam.get_role(RoleName=dwh_iam_role_name)["Role"]["Arn"]
@@ -82,6 +133,18 @@ def get_iam_role_arn(iam, config):
 
 
 def create_redshift_cluster(redshift, iam_role_arn, config):
+    """
+    Creates a new Redshift cluster with the specified configuration.
+
+    Args:
+        redshift (boto3.client): A Redshift client instance.
+        iam_role_arn (str): The ARN of the IAM role to associate with the cluster.
+        config (ConfigParser): A ConfigParser object containing cluster configuration.
+
+    Returns:
+        dict: A dictionary containing information about the newly created Redshift cluster.
+    """
+
     dwh_cluster_type = config.get("DWH", "DWH_CLUSTER_TYPE")
     dwh_num_nodes = config.get("DWH", "DWH_NUM_NODES")
     dwh_node_type = config.get("DWH", "DWH_NODE_TYPE")
@@ -109,6 +172,17 @@ def create_redshift_cluster(redshift, iam_role_arn, config):
 
 
 def wait_for_cluster_availability(redshift, config):
+    """
+    Waits for the specified Redshift cluster to become available.
+
+    Args:
+        redshift (boto3.client): A Redshift client instance.
+        config (ConfigParser): A ConfigParser object containing the cluster identifier.
+
+    Returns:
+        dict: A dictionary containing information about the available Redshift cluster.
+    """
+
     dwh_cluster_identifier = config.get("DWH", "DWH_CLUSTER_IDENTIFIER")
     print("Waiting for cluster to be available")
 
@@ -126,6 +200,15 @@ def wait_for_cluster_availability(redshift, config):
 
 
 def open_tcp_port(ec2, cluster_properties, config):
+    """
+    Opens a TCP port to access the specified Redshift cluster's endpoint.
+
+    Args:
+        ec2 (boto3.resource): An EC2 resource instance.
+        cluster_properties (dict): A dictionary containing Redshift cluster properties.
+        config (ConfigParser): A ConfigParser object containing the port number.
+    """
+
     dwh_port = config.get("CLUSTER", "DWH_PORT")
 
     try:
@@ -144,11 +227,27 @@ def open_tcp_port(ec2, cluster_properties, config):
 
 
 def update_config(config, cluster_properties):
+    """
+    Updates the configuration with the Redshift cluster's endpoint and IAM role ARN.
+
+    Args:
+        config (ConfigParser): A ConfigParser object to update.
+        cluster_properties (dict): A dictionary containing Redshift cluster properties.
+    """
+
     config.set("CLUSTER", "DWH_HOST", cluster_properties["Endpoint"]["Address"])
     config.set("IAM_ROLE", "arn", cluster_properties["IamRoles"][0]["IamRoleArn"])
 
 
 def save_config_to_file(config, filename="dwh.cfg"):
+    """
+    Saves the updated configuration to a file.
+
+    Args:
+        config (ConfigParser): A ConfigParser object containing the updated configuration.
+        filename (str, optional): The name of the file to save the configuration to. Defaults to "dwh.cfg".
+    """
+
     with open(filename, "w") as configfile:
         config.write(configfile)
 
