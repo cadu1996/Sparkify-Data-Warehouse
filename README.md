@@ -63,7 +63,7 @@ By leveraging these technologies, the Sparkify Data Warehouse project is well-eq
 
 The Data Warehouse (DWH) architecture for the Sparkify project is designed to provide a scalable, efficient, and easy-to-use environment for storing and analyzing large volumes of data. The architecture consists of several key components that work together to ensure seamless data processing, storage, and analysis.
 
-![DWH Architecture Diagram](dwh_architecture.drawio.svg)
+![DWH Architecture Diagram](img/dwh_architecture.drawio.svg)
 
 ### Components of the DWH Architecture
 
@@ -97,7 +97,7 @@ In the Sparkify Data Warehouse, we also use two staging tables to temporarily st
 
 Using staging tables simplifies the ETL process, as it allows for data validation, cleansing, and transformation to be performed efficiently before the data is loaded into the final fact and dimension tables.
 
-![Data Modeling Diagram](sparkify_staging_tables.png)
+![Data Modeling Diagram](img/sparkify_staging_tables.png)
 
 
 ### Star Schema
@@ -117,7 +117,7 @@ In the context of the Sparkify project, the fact table and dimension tables are 
 5. **Dimension Table - time**: This table breaks down the timestamp information of song plays into various time-based attributes, such as hour, day, week, month, year, and weekday.
 
 
-![Data Modeling Diagram](sparkify_star_schema.png)
+![Data Modeling Diagram](img/sparkify_star_schema.png)
 
 ### Data Modeling Process
 
